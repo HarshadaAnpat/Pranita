@@ -67,7 +67,7 @@
 
         chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
 
-        fetch("/get_response", {
+        fetch("http://127.0.0.1:5000/get_response", {
           method: "POST",
           body: new URLSearchParams({ user_input: userInput }),
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
