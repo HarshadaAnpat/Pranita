@@ -5,20 +5,11 @@ const responses = {
     "You can try taking deep breaths and relaxing.",
     "Talking to a friend might help. I'm here to listen.",
   ],
-  happy: [
-    "That's amazing! What’s making you happy?",
-    "I love hearing that! Keep smiling! 😊",
-    "Happiness is contagious! Tell me more.",
-  ],
+
   angry: [
     "Take a deep breath. What's making you feel this way?",
     "It's okay to feel angry, but try to calm yourself.",
     "Would you like some relaxation techniques?",
-  ],
-  excited: [
-    "Wow! What's the good news?",
-    "That sounds exciting! Tell me more!",
-    "I love excitement! What’s making your day special?",
   ],
 };
 
