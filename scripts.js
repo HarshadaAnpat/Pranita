@@ -1,23 +1,25 @@
 const responses = {
-  sad: [
-    "I'm really sorry you're feeling this way. Want to talk more about it? 💙",
-    "That sounds tough. Do you want to share what’s on your mind?",
-    "You're not alone. I'm here to listen. What's making you feel this way?",
-  ],
-  angry: [
-    "I get that you're angry. Do you want to vent about what happened?",
-    "It sounds frustrating. What do you think could help you feel better?",
-    "Anger is valid. Do you want to talk about it or find ways to calm down?",
-  ],
-  overwhelmed: [
-    "I'm sorry you're feeling overwhelmed. What's causing the stress?",
-    "That sounds like a lot to handle. Want to break it down together?",
-    "Take a deep breath. You're doing your best. How can I support you?",
-  ],
+  breakup: `I'm really sorry you're going through this. Breakups are tough, and it's okay to feel overwhelmed. Here are a few things that might help:<br>
+  - **Allow yourself to feel** – It’s okay to be sad, angry, or confused. Don't suppress your emotions.<br>
+  - **Lean on your support system** – Talk to close friends or family who can listen and comfort you.<br>
+  - **Focus on self-care** – Do things that make you feel good, like listening to music, exercising, or journaling.<br>
+  - **Avoid overthinking** – Try not to dwell on the past. Shift your focus to things that bring you peace and joy.<br>
+  - **Give yourself time** – Healing takes time, but you will come out stronger. Be patient and kind to yourself.<br>
+  - **You're not alone in this. You'll get through it.** 💙`,
+
+  overwhelmed: `I'm sorry you're feeling this way. What's making you feel overwhelmed? 💙`,
+
+  collegeProjects: `That sounds really stressful. College projects can pile up and feel overwhelming. Here are a few things that might help:<br>
+  - **Break it down** – Divide your projects into smaller tasks and tackle them one by one.<br>
+  - **Prioritize** – Focus on the most urgent or important ones first.<br>
+  - **Take breaks** – Short breaks can refresh your mind and improve focus.<br>
+  - **Ask for help** – If you're stuck, talking to a classmate or professor might make things easier.<br>
+  - **Self-care** – Even during busy times, a little “me time” (like listening to music or going for a walk) can help reduce stress.<br>
+  - **You're doing your best, and that’s enough! You got this.** 💙`,
 };
 
-let waitingForExplanation = false;
-let userEmotion = "";
+let waitingForReason = false;
+let lastEmotion = "";
 
 function sendMessage() {
   let userInput = document
@@ -26,36 +28,31 @@ function sendMessage() {
     .toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (!userInput) return;
+  if (!userInput) return; // Prevents empty input
 
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
   let botReply = "";
 
-  if (waitingForExplanation) {
-    botReply = `I understand. That sounds difficult. Here’s something that might help: <br>`;
-    botReply += responses[userEmotion]
-      ? responses[userEmotion][
-          Math.floor(Math.random() * responses[userEmotion].length)
-        ]
-      : "You're not alone. I'm here to listen. 💙";
-
-    waitingForExplanation = false;
-    userEmotion = "";
-  } else {
-    let foundEmotion = Object.keys(responses).find((key) =>
-      userInput.includes(key)
-    );
-
-    if (foundEmotion) {
-      userEmotion = foundEmotion;
-      botReply =
-        responses[foundEmotion][
-          Math.floor(Math.random() * responses[foundEmotion].length)
-        ];
-      waitingForExplanation = true;
+  if (waitingForReason) {
+    if (userInput.includes("breakup")) {
+      botReply = responses.breakup;
+    } else if (userInput.includes("college")) {
+      botReply = responses.collegeProjects;
     } else {
-      botReply =
-        "I'm here for you. Can you tell me more about how you're feeling?";
+      botReply = "That sounds really tough. Want to tell me more?";
+    }
+    waitingForReason = false;
+  } else {
+    if (userInput.includes("sad")) {
+      botReply = "I'm sorry you're feeling sad. Why do you feel this way? 💙";
+      waitingForReason = true;
+      lastEmotion = "sad";
+    } else if (userInput.includes("overwhelmed")) {
+      botReply = responses.overwhelmed;
+      waitingForReason = true;
+      lastEmotion = "overwhelmed";
+    } else {
+      botReply = "I'm here for you. Want to talk about what's on your mind?";
     }
   }
 
