@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import random
 
 app = Flask(__name__)
@@ -24,6 +24,11 @@ responses = {
         "Wow! What’s the good news?",
         "That sounds exciting! Tell me more.",
         "I love excitement! What’s making your day special?"
+    ],
+    "bored": [
+        "Maybe try a new hobby or watch something interesting?",
+        "Why not read a book or take a walk?",
+        "I can tell you a joke! Want to hear one?"
     ]
 }
 
@@ -34,14 +39,15 @@ def home():
 @app.route("/get_response", methods=["POST"])
 def get_response():
     user_input = request.form["user_input"].lower()
+    
     for key in responses.keys():
         if key in user_input:
-            return random.choice(responses[key])
+            return jsonify({"reply": random.choice(responses[key])})
     
     if user_input in ["bye", "exit", "quit"]:
-        return "Take care! If you need to talk, I'm here."
+        return jsonify({"reply": "Take care! If you need to talk, I'm here."})
     
-    return "I am here to listen. Tell me more."
+    return jsonify({"reply": "I am here to listen. Tell me more."})
 
 if __name__ == "__main__":
     app.run(debug=True)
