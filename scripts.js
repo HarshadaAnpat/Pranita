@@ -1,43 +1,39 @@
 const responses = {
-  sad: [
-    "I'm here for you. Do you want to talk about it?",
-    "It's okay to feel sad. Try listening to your favorite music!",
-    "You can try taking deep breaths and relaxing.",
-    "Talking to a friend might help. I'm here to listen.",
-  ],
-  happy: [
-    "That's amazing! What’s making you happy?",
-    "I love hearing that! Keep smiling! 😊",
-    "Happiness is contagious! Tell me more.",
-  ],
-  angry: [
-    "Take a deep breath. What's making you feel this way?",
-    "It's okay to feel angry, but try to calm yourself.",
-    "Would you like some relaxation techniques?",
-  ],
-  excited: [
-    "Wow! What's the good news?",
-    "That sounds exciting! Tell me more!",
-    "I love excitement! What’s making your day special?",
-  ],
+  sad: ["Try listening to music.", "Talk to a friend.", "Take deep breaths."],
+  angry: ["Take a deep breath.", "Try relaxation techniques."],
+  stressed: ["Go for a walk.", "Take a short break."],
 };
+
+let waitingForExplanation = false;
+let userEmotion = "";
 
 function sendMessage() {
   let userInput = document.getElementById("userInput").value.toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (userInput.trim() === "") return;
+  if (!userInput.trim()) return;
 
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+  let botReply = "";
 
-  let botReply = "I am here to listen. Tell me more.";
+  if (waitingForExplanation) {
+    botReply = `I understand. Here are some suggestions:`;
+    botReply += userEmotion in responses
+      ? `<br>- ${responses[userEmotion][Math.floor(Math.random() * responses[userEmotion].length)]}`
+      : "<br>- Express yourself or talk to someone you trust.";
 
-  for (let key in responses) {
-    if (userInput.includes(key)) {
-      let randomIndex = Math.floor(Math.random() * responses[key].length);
-      botReply = responses[key][randomIndex];
-      break;
+    waitingForExplanation = false;
+    userEmotion = "";
+  } else {
+    for (let key in responses) {
+      if (userInput.includes(key)) {
+        userEmotion = key;
+        botReply = `I see you're feeling ${key}. Can you tell me why?`;
+        waitingForExplanation = true;
+        break;
+      }
     }
+    if (!botReply) botReply = "I'm here to listen. Tell me more.";
   }
 
   setTimeout(() => {
