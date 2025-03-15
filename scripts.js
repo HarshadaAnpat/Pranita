@@ -1,30 +1,23 @@
 const responses = {
   sad: [
-    "I'm sorry you're feeling this way. You're not alone. Do you want to talk about it more?",
-    "Feeling sad can be really tough. Try expressing yourself to someone you trust or engaging in an activity you enjoy.",
-    "Sometimes, a change in environment helps. A short walk or listening to your favorite music might lift your mood.",
-    "Journaling can help process emotions. Writing down your thoughts may bring clarity and relief.",
-    "If this feeling persists, consider reaching out to a professional. Your emotions matter, and help is available.",
+    "I'm really sorry you're feeling this way. Want to talk more about it? 💙",
+    "That sounds tough. Do you want to share what’s on your mind?",
+    "You're not alone. I'm here to listen. What's making you feel this way?",
   ],
   angry: [
-    "It's okay to feel angry. Deep breaths can help. What happened that made you feel this way?",
-    "Anger often clouds judgment. Try stepping away from the situation and coming back when you feel calmer.",
-    "Physical activity, like a quick walk or workout, can help release built-up frustration.",
-    "Try writing down what made you angry. Seeing it written can help process the situation logically.",
-    "Talk to someone you trust about what’s bothering you. Expressing feelings can help release tension.",
+    "I get that you're angry. Do you want to vent about what happened?",
+    "It sounds frustrating. What do you think could help you feel better?",
+    "Anger is valid. Do you want to talk about it or find ways to calm down?",
   ],
-  stressed: [
-    "Stress can be overwhelming. Have you taken a short break today?",
-    "Try meditation or deep breathing exercises to calm your mind and reduce tension.",
-    "Listening to calming music or doing something creative can be a great stress reliever.",
-    "Sleep is essential for handling stress. Make sure you're getting enough rest.",
-    "Organizing your tasks and breaking them into smaller steps can make them feel more manageable.",
+  overwhelmed: [
+    "I'm sorry you're feeling overwhelmed. What's causing the stress?",
+    "That sounds like a lot to handle. Want to break it down together?",
+    "Take a deep breath. You're doing your best. How can I support you?",
   ],
 };
 
 let waitingForExplanation = false;
 let userEmotion = "";
-let userReason = "";
 
 function sendMessage() {
   let userInput = document
@@ -33,35 +26,36 @@ function sendMessage() {
     .toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (!userInput) return; // Prevent empty input
+  if (!userInput) return;
 
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
   let botReply = "";
 
   if (waitingForExplanation) {
-    userReason = userInput; // Store the user's reason
-    botReply = `I understand. ${
-      userReason ? "That sounds really tough." : "I hear you."
-    } Here are some suggestions: <br>`;
+    botReply = `I understand. That sounds difficult. Here’s something that might help: <br>`;
     botReply += responses[userEmotion]
       ? responses[userEmotion][
           Math.floor(Math.random() * responses[userEmotion].length)
         ]
-      : "Expressing yourself can be a relief. Consider talking to someone you trust.";
+      : "You're not alone. I'm here to listen. 💙";
 
     waitingForExplanation = false;
     userEmotion = "";
-    userReason = "";
   } else {
     let foundEmotion = Object.keys(responses).find((key) =>
       userInput.includes(key)
     );
+
     if (foundEmotion) {
       userEmotion = foundEmotion;
-      botReply = `I see you're feeling ${foundEmotion}. Why do you feel this way?`;
+      botReply =
+        responses[foundEmotion][
+          Math.floor(Math.random() * responses[foundEmotion].length)
+        ];
       waitingForExplanation = true;
     } else {
-      botReply = "I'm here to listen. Tell me more about how you're feeling.";
+      botReply =
+        "I'm here for you. Can you tell me more about how you're feeling?";
     }
   }
 
