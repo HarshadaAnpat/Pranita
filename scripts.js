@@ -14,7 +14,7 @@ const responses = {
 
   sad: "Want to talk about what’s on your mind? Sometimes just sharing can make things feel a little lighter.",
 
-  bad: "I'm here for you, What's wrong? You can talk to me about anything",
+  bad: "I'm here for you, What's wrong? You can talk to me about anything.",
 
   collegeProjects: `That sounds really stressful. College projects can pile up and feel overwhelming. Here are a few things that might help:<br>
   - **Break it down** – Divide your projects into smaller tasks and tackle them one by one.<br>
@@ -58,7 +58,7 @@ function sendMessage() {
     .toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (!userInput) return; // Prevents empty input
+  if (!userInput) return;
 
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
   let botReply = "";
@@ -66,35 +66,15 @@ function sendMessage() {
   if (waitingForReason) {
     if (userInput.includes("breakup")) {
       botReply = responses.breakup;
-    } else if (userInput.includes("college")) {
-      botReply = responses.collegeProjects;
-    } else if (userInput.includes("tired") || userInput.includes("drained")) {
-      botReply = responses.socialExhaustion;
-    } else if (
-      userInput.includes("sarcasm") ||
-      userInput.includes("confused")
-    ) {
-      botReply = responses.sarcasmConfusion;
-    } else if (userInput.includes("schedule") || userInput.includes("change")) {
-      botReply = responses.scheduleChange;
-    } else if (
-      userInput.includes("sensory") ||
-      userInput.includes("meltdown")
-    ) {
-      botReply = responses.sensoryOverload;
+      waitingForReason = false;
     } else {
       botReply = "That sounds really tough. Want to tell me more?";
     }
-    waitingForReason = false;
   } else {
-    if (userInput.includes("sad")) {
-      botReply = "I'm sorry you're feeling sad. Why do you feel this way?";
+    if (userInput.includes("sad") || userInput.includes("bad")) {
+      botReply =
+        "I'm sorry you're feeling this way. Why do you feel this way? 💙";
       waitingForReason = true;
-      lastEmotion = "sad";
-    } else if (userInput.includes("overwhelmed")) {
-      botReply = responses.overwhelmed;
-      waitingForReason = true;
-      lastEmotion = "overwhelmed";
     } else {
       botReply = "I'm here for you. Want to talk about what's on your mind?";
     }
