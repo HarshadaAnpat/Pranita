@@ -24,41 +24,41 @@ const responses = {
 
 let waitingForExplanation = false;
 let userEmotion = "";
-let userReason = "";
 
 function sendMessage() {
-  let userInput = document.getElementById("userInput").value.toLowerCase();
+  let userInput = document
+    .getElementById("userInput")
+    .value.trim()
+    .toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (!userInput.trim()) return;
+  if (!userInput) return; // Prevent empty input
 
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
   let botReply = "";
 
   if (waitingForExplanation) {
-    userReason = userInput; // Store the user's explanation
-    botReply = `I understand. Based on what you said, here are some suggestions: <br>`;
-    botReply +=
-      userEmotion in responses
-        ? responses[userEmotion][
-            Math.floor(Math.random() * responses[userEmotion].length)
-          ]
-        : "Expressing yourself can be a relief. Consider talking to someone you trust.";
+    botReply = `I understand. Here are some suggestions for you: <br>`;
+    botReply += responses[userEmotion]
+      ? responses[userEmotion][
+          Math.floor(Math.random() * responses[userEmotion].length)
+        ]
+      : "Expressing yourself can be a relief. Consider talking to someone you trust.";
 
     waitingForExplanation = false;
     userEmotion = "";
-    userReason = "";
   } else {
-    for (let key in responses) {
-      if (userInput.includes(key)) {
-        userEmotion = key;
-        botReply = `I see you're feeling ${key}. Why do you feel this way?`;
-        waitingForExplanation = true;
-        break;
-      }
-    }
-    if (!botReply)
+    let foundEmotion = Object.keys(responses).find((key) =>
+      userInput.includes(key)
+    );
+
+    if (foundEmotion) {
+      userEmotion = foundEmotion;
+      botReply = `I see you're feeling ${foundEmotion}. Why do you feel this way?`;
+      waitingForExplanation = true;
+    } else {
       botReply = "I'm here to listen. Tell me more about how you're feeling.";
+    }
   }
 
   setTimeout(() => {
