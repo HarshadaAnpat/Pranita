@@ -1,13 +1,13 @@
 const responses = {
-  breakup: `<p><strong>Let Yourself Feel -</strong><br> 
+  breakup: `<p><strong>Let Yourself Feel -</strong><br>
   It is okay to be sad, angry, or confused. Do not force yourself to move on instantly. Accept your emotions but do not let them consume you.</p>
   
-  <p><strong>Talk to Someone You Trust -</strong><br> 
+  <p><strong>Talk to Someone You Trust -</strong><br>
   A close friend, sibling, or someone who understands you can help. Even venting a little can make you feel lighter.</p>
-
-  <p><strong>Keep Yourself Busy -</strong><br> 
-  Code something fun, maybe work on a new ReactJS project or experiment with a cool design.<br> 
-  Watch anime or a movie, something lighthearted that makes you smile.<br> 
+  
+  <p><strong>Keep Yourself Busy -</strong><br>
+  Code something fun, maybe work on a new ReactJS project or experiment with a cool design.<br>
+  Watch anime or a movie, something lighthearted that makes you smile.<br>
   Read or learn something new since you love web development, maybe explore a new library or framework.</p>`,
 
   overwhelmed: `I'm sorry you're feeling this way. What's making you feel overwhelmed? 💙`,
@@ -45,7 +45,7 @@ const responses = {
   - **Find a quiet place** – Removing yourself from loud or crowded spaces can help.<br>
   - **Use noise-canceling headphones** – Blocking out sound can reduce stress.<br>
   - **Try deep pressure or stimming** – Hugging a weighted blanket or fidgeting can help regulate emotions.<br>
-  - **Meltdowns aren’t your fault** – You’re doing your best, and that’s what matters.** 💙`,
+  - **Meltdowns aren’t your fault** – You’re doing your best, and that’s what matters. 💙`,
 };
 
 let waitingForReason = false;
@@ -58,23 +58,56 @@ function sendMessage() {
     .toLowerCase();
   let chat = document.getElementById("chat");
 
-  if (!userInput) return;
+  if (!userInput) return; // Prevents empty input
 
+  // Display the user's message
   chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
   let botReply = "";
 
   if (waitingForReason) {
+    // Handle follow-up responses
     if (userInput.includes("breakup")) {
       botReply = responses.breakup;
       waitingForReason = false;
+    } else if (userInput.includes("college")) {
+      botReply = responses.collegeProjects;
+      waitingForReason = false;
+    } else if (userInput.includes("tired") || userInput.includes("drained")) {
+      botReply = responses.exhausted;
+      waitingForReason = false;
+    } else if (
+      userInput.includes("sarcasm") ||
+      userInput.includes("confused")
+    ) {
+      botReply = responses.sarcasmConfusion;
+      waitingForReason = false;
+    } else if (userInput.includes("schedule") || userInput.includes("change")) {
+      botReply = responses.scheduleChange;
+      waitingForReason = false;
+    } else if (
+      userInput.includes("sensory") ||
+      userInput.includes("meltdown")
+    ) {
+      botReply = responses.sensoryOverload;
+      waitingForReason = false;
     } else {
       botReply = "That sounds really tough. Want to tell me more?";
+      waitingForReason = false;
     }
   } else {
-    if (userInput.includes("sad") || userInput.includes("bad")) {
-      botReply =
-        "I'm sorry you're feeling this way. Why do you feel this way? 💙";
+    // Handle initial emotional inputs
+    if (userInput.includes("sad")) {
+      botReply = "I'm sorry you're feeling sad. Why do you feel this way? 💙";
       waitingForReason = true;
+      lastEmotion = "sad";
+    } else if (userInput.includes("bad")) {
+      botReply = responses.bad;
+      waitingForReason = false;
+      lastEmotion = "bad";
+    } else if (userInput.includes("overwhelmed")) {
+      botReply = responses.overwhelmed;
+      waitingForReason = true;
+      lastEmotion = "overwhelmed";
     } else {
       botReply = "I'm here for you. Want to talk about what's on your mind?";
     }
