@@ -17,7 +17,7 @@ const responses = {
   - **Self-care** – Even during busy times, a little “me time” (like listening to music or going for a walk) can help reduce stress.<br>
   - **You're doing your best, and that’s enough! You got this.** 💙`,
 
-  socialExhaustion: `I understand, socializing can be draining. Here’s something that might help:<br>
+  exhausted: `I understand, socializing can be draining. Here’s something that might help:<br>
   - **Take time for yourself** – A quiet moment alone can help recharge your energy.<br>
   - **Set boundaries** – It’s okay to say no to social interactions if you need rest.<br>
   - **Use a grounding activity** – Listening to music, watching a familiar show, or stimming can help regulate emotions.<br>
