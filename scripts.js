@@ -16,6 +16,29 @@ const responses = {
   - **Ask for help** – If you're stuck, talking to a classmate or professor might make things easier.<br>
   - **Self-care** – Even during busy times, a little “me time” (like listening to music or going for a walk) can help reduce stress.<br>
   - **You're doing your best, and that’s enough! You got this.** 💙`,
+
+  socialExhaustion: `I understand, socializing can be draining. Here’s something that might help:<br>
+  - **Take time for yourself** – A quiet moment alone can help recharge your energy.<br>
+  - **Set boundaries** – It’s okay to say no to social interactions if you need rest.<br>
+  - **Use a grounding activity** – Listening to music, watching a familiar show, or stimming can help regulate emotions.<br>
+  - **Remember: It’s okay to be yourself. You don’t have to mask all the time.** 💙`,
+
+  sarcasmConfusion: `Sarcasm can be really hard to understand sometimes. If you ever feel unsure, here’s what you can do:<br>
+  - **Ask for clarification** – A simple “Oh, were you joking?” can help.<br>
+  - **Look for tone & facial cues** – If the person is smiling or exaggerating, it might be sarcasm.<br>
+  - **It’s not your fault!** – Many people struggle with sarcasm, and that’s okay.<br>
+  - **If a misunderstanding happens, you can always follow up and explain.** 💙`,
+
+  scheduleChange: `A change in routine can feel really unsettling. Here’s how you might handle it:<br>
+  - **Try making a new mini-plan** – Focusing on one task at a time can help.<br>
+  - **Use a familiar routine** – Keeping a part of your normal schedule can make things feel more stable.<br>
+  - **Remind yourself: It’s okay to feel this way. Adjusting takes time.** 💙`,
+
+  sensoryOverload: `Sensory overload can be really overwhelming. If you're feeling overstimulated, try these:<br>
+  - **Find a quiet place** – Removing yourself from loud or crowded spaces can help.<br>
+  - **Use noise-canceling headphones** – Blocking out sound can reduce stress.<br>
+  - **Try deep pressure or stimming** – Hugging a weighted blanket or fidgeting can help regulate emotions.<br>
+  - **Meltdowns aren’t your fault** – You’re doing your best, and that’s what matters.** 💙`,
 };
 
 let waitingForReason = false;
@@ -38,6 +61,20 @@ function sendMessage() {
       botReply = responses.breakup;
     } else if (userInput.includes("college")) {
       botReply = responses.collegeProjects;
+    } else if (userInput.includes("tired") || userInput.includes("drained")) {
+      botReply = responses.socialExhaustion;
+    } else if (
+      userInput.includes("sarcasm") ||
+      userInput.includes("confused")
+    ) {
+      botReply = responses.sarcasmConfusion;
+    } else if (userInput.includes("schedule") || userInput.includes("change")) {
+      botReply = responses.scheduleChange;
+    } else if (
+      userInput.includes("sensory") ||
+      userInput.includes("meltdown")
+    ) {
+      botReply = responses.sensoryOverload;
     } else {
       botReply = "That sounds really tough. Want to tell me more?";
     }
