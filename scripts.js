@@ -1,7 +1,25 @@
 const responses = {
-  sad: ["Try listening to music.", "Talk to a friend.", "Take deep breaths."],
-  angry: ["Take a deep breath.", "Try relaxation techniques."],
-  stressed: ["Go for a walk.", "Take a short break."],
+  sad: [
+    "I'm sorry you're feeling this way. Try expressing yourself to someone you trust. Talking can lighten your burden.",
+    "Sadness is a natural emotion. Have you tried engaging in an activity you enjoy? Distractions can help.",
+    "Sometimes, a change in environment helps. Go for a walk, breathe in fresh air, and observe nature.",
+    "Journaling can help process emotions. Writing down your thoughts may bring clarity and relief.",
+    "If this feeling persists, consider reaching out to a professional. Your emotions matter, and help is available."
+  ],
+  angry: [
+    "It's okay to feel angry. Try taking deep breaths and counting to ten before reacting.",
+    "Anger often clouds judgment. Step away from the situation and revisit it when you feel calmer.",
+    "Physical activity, like a quick walk or workout, can help release built-up frustration.",
+    "Try writing down what made you angry. Seeing it written can help process the situation logically.",
+    "Talk to someone you trust about what’s bothering you. Expressing feelings can help release tension."
+  ],
+  stressed: [
+    "Stress can feel overwhelming, but remember to take breaks and prioritize self-care.",
+    "Try meditation or deep breathing exercises to calm your mind and reduce tension.",
+    "Listening to calming music or doing something creative can be a great stress reliever.",
+    "Sleep is essential for handling stress. Make sure you're getting enough rest.",
+    "Organizing your tasks and breaking them into smaller steps can make them feel more manageable."
+  ]
 };
 
 let waitingForExplanation = false;
@@ -17,10 +35,10 @@ function sendMessage() {
   let botReply = "";
 
   if (waitingForExplanation) {
-    botReply = `I understand. Here are some suggestions:`;
+    botReply = `I understand. Here are some suggestions for you: <br>`;
     botReply += userEmotion in responses
-      ? `<br>- ${responses[userEmotion][Math.floor(Math.random() * responses[userEmotion].length)]}`
-      : "<br>- Express yourself or talk to someone you trust.";
+      ? responses[userEmotion][Math.floor(Math.random() * responses[userEmotion].length)]
+      : "Expressing yourself can be a relief. Consider talking to someone you trust.";
 
     waitingForExplanation = false;
     userEmotion = "";
@@ -28,7 +46,7 @@ function sendMessage() {
     for (let key in responses) {
       if (userInput.includes(key)) {
         userEmotion = key;
-        botReply = `I see you're feeling ${key}. Can you tell me why?`;
+        botReply = `I see you're feeling ${key}. Why do you feel this way?`;
         waitingForExplanation = true;
         break;
       }
