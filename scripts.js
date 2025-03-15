@@ -88,7 +88,7 @@ function sendMessage() {
     waitingForReason = false;
   } else {
     if (userInput.includes("sad")) {
-      botReply = "I'm sorry you're feeling sad. Why do you feel this way? 💙";
+      botReply = "I'm sorry you're feeling sad. Why do you feel this way?";
       waitingForReason = true;
       lastEmotion = "sad";
     } else if (userInput.includes("overwhelmed")) {
