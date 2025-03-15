@@ -1,41 +1,66 @@
-function chatbot() {
-  console.log("Chatbot: Hello! How are you feeling today?");
+const responses = {
+  sad: [
+    "I'm sorry you're feeling this way. Try expressing yourself to someone you trust. Talking can lighten your burden.",
+    "Sadness is a natural emotion. Have you tried engaging in an activity you enjoy? Distractions can help.",
+    "Sometimes, a change in environment helps. Go for a walk, breathe in fresh air, and observe nature.",
+    "Journaling can help process emotions. Writing down your thoughts may bring clarity and relief.",
+    "If this feeling persists, consider reaching out to a professional. Your emotions matter, and help is available.",
+  ],
+  angry: [
+    "It's okay to feel angry. Try taking deep breaths and counting to ten before reacting.",
+    "Anger often clouds judgment. Step away from the situation and revisit it when you feel calmer.",
+    "Physical activity, like a quick walk or workout, can help release built-up frustration.",
+    "Try writing down what made you angry. Seeing it written can help process the situation logically.",
+    "Talk to someone you trust about what’s bothering you. Expressing feelings can help release tension.",
+  ],
+  stressed: [
+    "Stress can feel overwhelming, but remember to take breaks and prioritize self-care.",
+    "Try meditation or deep breathing exercises to calm your mind and reduce tension.",
+    "Listening to calming music or doing something creative can be a great stress reliever.",
+    "Sleep is essential for handling stress. Make sure you're getting enough rest.",
+    "Organizing your tasks and breaking them into smaller steps can make them feel more manageable.",
+  ],
+};
 
-  function getUserInput() {
-    let userInput = prompt("You:").toLowerCase();
+let waitingForExplanation = false;
+let userEmotion = "";
 
-    if (userInput.includes("sad")) {
-      let whQuestions = [
-        "What happened?",
-        "Why are you feeling sad?",
-        "Do you want to talk about it?",
-      ];
-      let question =
-        whQuestions[Math.floor(Math.random() * whQuestions.length)];
-      console.log("Chatbot:", question);
+function sendMessage() {
+  let userInput = document.getElementById("userInput").value.toLowerCase();
+  let chat = document.getElementById("chat");
 
-      let userResponse = prompt("You:");
+  if (!userInput.trim()) return;
 
-      let solutions = [
-        "Try taking a short walk outside.",
-        "Listen to your favorite music.",
-        "Talk to a close friend or family member.",
-        "Take deep breaths and relax.",
-        "Watch something funny to lighten your mood.",
-      ];
-      let advice = solutions[Math.floor(Math.random() * solutions.length)];
-      console.log("Chatbot:", advice);
-    } else if (["bye", "exit", "quit"].includes(userInput)) {
-      console.log("Chatbot: Take care! If you need to talk, I'm here.");
-      return;
-    } else {
-      console.log("Chatbot: I am here to listen. Tell me more.");
+  chat.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+  let botReply = "";
+
+  if (waitingForExplanation) {
+    botReply = `I understand. Here are some suggestions for you: <br>`;
+    botReply +=
+      userEmotion in responses
+        ? responses[userEmotion][
+            Math.floor(Math.random() * responses[userEmotion].length)
+          ]
+        : "Expressing yourself can be a relief. Consider talking to someone you trust.";
+
+    waitingForExplanation = false;
+    userEmotion = "";
+  } else {
+    for (let key in responses) {
+      if (userInput.includes(key)) {
+        userEmotion = key;
+        botReply = `I see you're feeling ${key}. Why do you feel this way?`;
+        waitingForExplanation = true;
+        break;
+      }
     }
-
-    setTimeout(getUserInput, 1000);
+    if (!botReply) botReply = "I'm here to listen. Tell me more.";
   }
 
-  getUserInput();
-}
+  setTimeout(() => {
+    chat.innerHTML += `<p><strong>Chatbot:</strong> ${botReply}</p>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 500);
 
-chatbot();
+  document.getElementById("userInput").value = "";
+}
