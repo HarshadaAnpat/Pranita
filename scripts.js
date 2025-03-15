@@ -1,13 +1,20 @@
 const responses = {
-  breakup: `I'm really sorry you're going through this. Breakups are tough, and it's okay to feel overwhelmed. Here are a few things that might help:<br>
-  - **Allow yourself to feel** – It’s okay to be sad, angry, or confused. Don't suppress your emotions.<br>
-  - **Lean on your support system** – Talk to close friends or family who can listen and comfort you.<br>
-  - **Focus on self-care** – Do things that make you feel good, like listening to music, exercising, or journaling.<br>
-  - **Avoid overthinking** – Try not to dwell on the past. Shift your focus to things that bring you peace and joy.<br>
-  - **Give yourself time** – Healing takes time, but you will come out stronger. Be patient and kind to yourself.<br>
-  - **You're not alone in this. You'll get through it.** 💙`,
+  breakup: `<p><strong>Let Yourself Feel -</strong><br> 
+  It is okay to be sad, angry, or confused. Do not force yourself to move on instantly. Accept your emotions but do not let them consume you.</p>
+  
+  <p><strong>Talk to Someone You Trust -</strong><br> 
+  A close friend, sibling, or someone who understands you can help. Even venting a little can make you feel lighter.</p>
+
+  <p><strong>Keep Yourself Busy -</strong><br> 
+  Code something fun, maybe work on a new ReactJS project or experiment with a cool design.<br> 
+  Watch anime or a movie, something lighthearted that makes you smile.<br> 
+  Read or learn something new since you love web development, maybe explore a new library or framework.</p>`,
 
   overwhelmed: `I'm sorry you're feeling this way. What's making you feel overwhelmed? 💙`,
+
+  sad: "Want to talk about what’s on your mind? Sometimes just sharing can make things feel a little lighter.",
+
+  bad: "I'm here for you, What's wrong? You can talk to me about anything",
 
   collegeProjects: `That sounds really stressful. College projects can pile up and feel overwhelming. Here are a few things that might help:<br>
   - **Break it down** – Divide your projects into smaller tasks and tackle them one by one.<br>
