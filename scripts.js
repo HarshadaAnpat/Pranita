@@ -24,6 +24,7 @@ const responses = {
 
 let waitingForExplanation = false;
 let userEmotion = "";
+let userReason = "";
 
 function sendMessage() {
   let userInput = document.getElementById("userInput").value.toLowerCase();
@@ -35,7 +36,8 @@ function sendMessage() {
   let botReply = "";
 
   if (waitingForExplanation) {
-    botReply = `I understand. Here are some suggestions for you: <br>`;
+    userReason = userInput; // Store the user's explanation
+    botReply = `I understand. Based on what you said, here are some suggestions: <br>`;
     botReply +=
       userEmotion in responses
         ? responses[userEmotion][
@@ -45,6 +47,7 @@ function sendMessage() {
 
     waitingForExplanation = false;
     userEmotion = "";
+    userReason = "";
   } else {
     for (let key in responses) {
       if (userInput.includes(key)) {
@@ -54,7 +57,8 @@ function sendMessage() {
         break;
       }
     }
-    if (!botReply) botReply = "I'm here to listen. Tell me more.";
+    if (!botReply)
+      botReply = "I'm here to listen. Tell me more about how you're feeling.";
   }
 
   setTimeout(() => {
