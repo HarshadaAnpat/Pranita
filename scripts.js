@@ -1,20 +1,20 @@
 const responses = {
   sad: [
-    "I'm sorry you're feeling this way. Try expressing yourself to someone you trust. Talking can lighten your burden.",
-    "Sadness is a natural emotion. Have you tried engaging in an activity you enjoy? Distractions can help.",
-    "Sometimes, a change in environment helps. Go for a walk, breathe in fresh air, and observe nature.",
+    "I'm sorry you're feeling this way. You're not alone. Do you want to talk about it more?",
+    "Feeling sad can be really tough. Try expressing yourself to someone you trust or engaging in an activity you enjoy.",
+    "Sometimes, a change in environment helps. A short walk or listening to your favorite music might lift your mood.",
     "Journaling can help process emotions. Writing down your thoughts may bring clarity and relief.",
     "If this feeling persists, consider reaching out to a professional. Your emotions matter, and help is available.",
   ],
   angry: [
-    "It's okay to feel angry. Try taking deep breaths and counting to ten before reacting.",
-    "Anger often clouds judgment. Step away from the situation and revisit it when you feel calmer.",
+    "It's okay to feel angry. Deep breaths can help. What happened that made you feel this way?",
+    "Anger often clouds judgment. Try stepping away from the situation and coming back when you feel calmer.",
     "Physical activity, like a quick walk or workout, can help release built-up frustration.",
     "Try writing down what made you angry. Seeing it written can help process the situation logically.",
     "Talk to someone you trust about what’s bothering you. Expressing feelings can help release tension.",
   ],
   stressed: [
-    "Stress can feel overwhelming, but remember to take breaks and prioritize self-care.",
+    "Stress can be overwhelming. Have you taken a short break today?",
     "Try meditation or deep breathing exercises to calm your mind and reduce tension.",
     "Listening to calming music or doing something creative can be a great stress reliever.",
     "Sleep is essential for handling stress. Make sure you're getting enough rest.",
@@ -24,6 +24,7 @@ const responses = {
 
 let waitingForExplanation = false;
 let userEmotion = "";
+let userReason = "";
 
 function sendMessage() {
   let userInput = document
@@ -38,7 +39,10 @@ function sendMessage() {
   let botReply = "";
 
   if (waitingForExplanation) {
-    botReply = `I understand. Here are some suggestions for you: <br>`;
+    userReason = userInput; // Store the user's reason
+    botReply = `I understand. ${
+      userReason ? "That sounds really tough." : "I hear you."
+    } Here are some suggestions: <br>`;
     botReply += responses[userEmotion]
       ? responses[userEmotion][
           Math.floor(Math.random() * responses[userEmotion].length)
@@ -47,11 +51,11 @@ function sendMessage() {
 
     waitingForExplanation = false;
     userEmotion = "";
+    userReason = "";
   } else {
     let foundEmotion = Object.keys(responses).find((key) =>
       userInput.includes(key)
     );
-
     if (foundEmotion) {
       userEmotion = foundEmotion;
       botReply = `I see you're feeling ${foundEmotion}. Why do you feel this way?`;
