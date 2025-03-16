@@ -25,11 +25,11 @@ const responses = {
   presentation: `<p>I totally get that. Public speaking can be intimidating, 
   especially when you feel like all eyes are on you. But remember, 
   most people in the audience are just listening, not judging—they want you to do well.<br>
-<h3>If you're worried about forgetting what to say, try this:</h3>
+<b>If you're worried about forgetting what to say, try this:</b>
 <b>Pause and breathe –</b> It’s okay to take a moment to collect your thoughts.<br>
 <b>Have key points in mind –</b> Instead of memorizing word for word, focus on the main ideas.<br>
 <b>Practice out loud –</b> Even saying it a few times in front of a mirror or recording yourself can boost confidence.<br>
-<h3>If it’s about how people will react, remind yourself:</h3>
+<b>If it’s about how people will react, remind yourself:</b>
 <b>You can’t control others, only how you show up –<b> And showing up is already a win.<br>
 <b>Most people don’t notice small mistakes –</b> They’ll be focused on your message, not tiny slip-ups.<br>
 <b>You bring value –</b> What you’re presenting matters, and your voice is worth hearing. </p>`,
