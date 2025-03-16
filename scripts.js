@@ -2,14 +2,14 @@ const responses = {
   defaultFollowUp:
     "What’s been wearing you out? Is it stress, lack of sleep, or just too much going on at once? I'm here to listen.",
 
-  overwhelmed: `What's making you feel overwhelmed?`,
+  overwhelmed: "What's making you feel overwhelmed?",
 
   sad: "Want to talk about what’s on your mind? Sometimes just sharing can make things feel a little lighter.",
 
   bad: "I'm here for you, What's wrong? You can talk to me about anything.",
 
   anxious:
-    "Do you want to talk about What’s making you anxious? Any specific reason?",
+    "Do you want to talk about what’s making you anxious? Any specific reason?",
 
   nervous:
     "That’s completely okay to feel. Do you want to talk about what’s making you nervous?",
@@ -33,7 +33,7 @@ const responses = {
 <b>Have key points in mind –</b> Instead of memorizing word for word, focus on the main ideas.<br>
 <b>Practice out loud –</b> Even saying it a few times in front of a mirror or recording yourself can boost confidence.<br>
 <b>If it’s about how people will react, remind yourself:</b>
-<b>You can’t control others, only how you show up –<b> And showing up is already a win.<br>
+<b>You can’t control others, only how you show up –</b> And showing up is already a win.<br>
 <b>Most people don’t notice small mistakes –</b> They’ll be focused on your message, not tiny slip-ups.<br>
 <b>You bring value –</b> What you’re presenting matters, and your voice is worth hearing. </p>`,
 
@@ -47,7 +47,7 @@ You don’t have to go through this alone.<br>
 Grief comes in waves, and however you're feeling is valid.<br>
 <b>Do something comforting –</b> Watch a favorite movie, take a walk, listen to music that soothes you. 
 Little things can bring a sense of normalcy.<br>
-<b>Remember the good moments –</br> If it feels right, think about a memory that makes you smile. 
+<b>Remember the good moments –</b> If it feels right, think about a memory that makes you smile. 
 It’s okay to celebrate their life even while you’re hurting.<br>
 <b>Take care of yourself –</b> Even if you don’t feel like it, eat something, get some rest, breathe. 
 Grief can be exhausting, and your well-being matters.<br>
@@ -71,7 +71,6 @@ function sendMessage() {
   let botReply = "";
 
   if (waitingForReason) {
-    // Handle follow-up responses
     if (userInput.includes("breakup")) {
       botReply = responses.breakup;
       waitingForReason = false;
@@ -90,20 +89,11 @@ function sendMessage() {
       waitingForReason = true;
     }
   } else {
-    if (userInput.includes("sad")) {
-      botReply = responses.sad;
-      waitingForReason = true;
-    } else if (userInput.includes("bad")) {
-      botReply = responses.bad;
-      waitingForReason = true;
-    } else if (userInput.includes("anxious")) {
-      botReply = responses.anxious;
-      waitingForReason = true;
-    } else if (userInput.includes("nervous")) {
-      botReply = responses.nervous;
-      waitingForReason = true;
-    } else if (userInput.includes("overwhelmed")) {
-      botReply = responses.overwhelmed;
+    const emotions = ["sad", "bad", "anxious", "nervous", "overwhelmed"];
+    let foundEmotion = emotions.find((emotion) => userInput.includes(emotion));
+
+    if (foundEmotion) {
+      botReply = responses[foundEmotion];
       waitingForReason = true;
     } else {
       botReply = responses.defaultFollowUp;
