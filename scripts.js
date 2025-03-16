@@ -1,4 +1,7 @@
 const responses = {
+  defaultFollowUp:
+    "What’s been wearing you out? Is it stress, lack of sleep, or just too much going on at once? I'm here to listen.",
+
   overwhelmed: `What's making you feel overwhelmed?`,
 
   sad: "Want to talk about what’s on your mind? Sometimes just sharing can make things feel a little lighter.",
@@ -53,7 +56,6 @@ If you ever just want to talk—about anything, even random stuff to distract yo
 };
 
 let waitingForReason = false;
-let lastEmotion = "";
 
 function sendMessage() {
   let userInput = document
@@ -70,6 +72,24 @@ function sendMessage() {
 
   if (waitingForReason) {
     // Handle follow-up responses
+    if (userInput.includes("breakup")) {
+      botReply = responses.breakup;
+      waitingForReason = false;
+    } else if (userInput.includes("presentation")) {
+      botReply = responses.presentation;
+      waitingForReason = false;
+    } else if (
+      userInput.includes("passed away") ||
+      userInput.includes("lost someone") ||
+      userInput.includes("died")
+    ) {
+      botReply = responses.passed_Away;
+      waitingForReason = false;
+    } else {
+      botReply = "I see. Want to talk more about it? I'm here to listen.";
+      waitingForReason = true;
+    }
+  } else {
     if (userInput.includes("sad")) {
       botReply = responses.sad;
       waitingForReason = true;
@@ -85,20 +105,10 @@ function sendMessage() {
     } else if (userInput.includes("overwhelmed")) {
       botReply = responses.overwhelmed;
       waitingForReason = true;
-    } else if (userInput.includes("breakup")) {
-      botReply = responses.breakup;
-      waitingForReason = false;
-    } else if (userInput.includes("presentation")) {
-      botReply = responses.presentation;
-      waitingForReason = false;
-    } else if (userInput.includes("passed_Away")) {
-      botReply = responses.passed_Away;
-      waitingForReason = false;
+    } else {
+      botReply = responses.defaultFollowUp;
+      waitingForReason = true;
     }
-  } else {
-    botReply =
-      "What’s been wearing you out? Is it stress, lack of sleep, or just too much going on at once? I'm here to listen.";
-    waitingForReason = true;
   }
 
   setTimeout(() => {
