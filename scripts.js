@@ -76,6 +76,12 @@ function sendMessage() {
     } else if (userInput.includes("bad")) {
       botReply = responses.bad;
       waitingForReason = true;
+    } else if (userInput.includes("anxious")) {
+      botReply = responses.anxious;
+      waitingForReason = true;
+    } else if (userInput.includes("nervous")) {
+      botReply = responses.nervous;
+      waitingForReason = true;
     } else if (userInput.includes("overwhelmed")) {
       botReply = responses.overwhelmed;
       waitingForReason = true;
