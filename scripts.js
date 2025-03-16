@@ -25,11 +25,11 @@ const responses = {
   presentation: `<p>I totally get that. Public speaking can be intimidating, 
   especially when you feel like all eyes are on you. But remember, 
   most people in the audience are just listening, not judging—they want you to do well.<br>
-<h6>If you're worried about forgetting what to say, try this:</h6>
+<h3>If you're worried about forgetting what to say, try this:</h3>
 <b>Pause and breathe –</b> It’s okay to take a moment to collect your thoughts.<br>
 <b>Have key points in mind –</b> Instead of memorizing word for word, focus on the main ideas.<br>
 <b>Practice out loud –</b> Even saying it a few times in front of a mirror or recording yourself can boost confidence.<br>
-<h6>If it’s about how people will react, remind yourself:</h6>
+<h3>If it’s about how people will react, remind yourself:</h3>
 <b>You can’t control others, only how you show up –<b> And showing up is already a win.<br>
 <b>Most people don’t notice small mistakes –</b> They’ll be focused on your message, not tiny slip-ups.<br>
 <b>You bring value –</b> What you’re presenting matters, and your voice is worth hearing. </p>`,
@@ -37,7 +37,7 @@ const responses = {
   passed_Away: `I’m really sorry you're going through this. 
   Losing someone is one of the hardest things, and there’s no right or wrong way to grieve. 
   Just take it one moment at a time.<br>
-<h6>If it feels overwhelming, maybe try these:</h6>
+<h3>If it feels overwhelming, maybe try these:</h3>
 <b>Talk to someone who understands –</b> A close friend, a family member, or even just writing your feelings down can help. 
 You don’t have to go through this alone.<br>
 <b>Let yourself feel –</b> If you need to cry, cry. If you need to be quiet, that’s okay too. 
